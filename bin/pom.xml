@@ -22,8 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<!--<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect "/>-->
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+		<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect "/>
 	</properties>
 
 
