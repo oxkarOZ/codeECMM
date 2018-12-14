@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.elcocomx.springboot.app.model.entity.brand.Brand;
 import com.elcocomx.springboot.app.model.entity.brand.BrandRepository;
+import com.elcocomx.springboot.app.model.entity.brand.BrandTotal;
 
 @Service
 public class BrandService implements IBrandService{
@@ -49,6 +50,29 @@ public class BrandService implements IBrandService{
 	@Override
 	public void deleteBrand(int brandId) {
 		brandRepository.delete(getBrandById(brandId));
+	}
+
+	@Override
+	public List<BrandTotal> getAllBrandsTotal() {
+		List<BrandTotal> list = new ArrayList<>();
+		List<Object[]> results = brandRepository.getBrandsTotal();
+		for (Object[] result : results) {
+			Brand brand = new Brand();
+			BrandTotal brandTotal = new BrandTotal();
+			
+			brand = (Brand) result[0];
+			Long total = (Long)result[1];
+			
+			brandTotal.setBrandDescription(brand.getBrandDescription());
+			brandTotal.setBrandId(brand.getBrandId());
+			brandTotal.setBrandImage(brand.getBrandImage());
+			brandTotal.setBrandName(brand.getBrandName());
+			brandTotal.setTotal(total);
+			list.add(brandTotal);
+			
+		}
+		
+		return list;
 	}
 	
 }

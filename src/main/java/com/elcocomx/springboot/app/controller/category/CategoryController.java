@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +19,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.elcocomx.springboot.app.model.entity.brand.Brand;
 import com.elcocomx.springboot.app.model.entity.category.Category;
+import com.elcocomx.springboot.app.model.entity.category.MainCategory;
 import com.elcocomx.springboot.app.service.category.ICategoryService;
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("category")
 public class CategoryController {
@@ -36,6 +38,12 @@ public class CategoryController {
 	public ResponseEntity<List<Category>> getAllCategories() {
 		List<Category> list = categoryService.getAllCategories();
 		return new ResponseEntity<List<Category>>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("allMain")
+	public ResponseEntity<List<MainCategory>> getAllMainCategories() {
+		List<MainCategory> list = categoryService.getAllMainCategories();
+		return new ResponseEntity<List<MainCategory>>(list, HttpStatus.OK);
 	}
 	
 	@PostMapping("add")

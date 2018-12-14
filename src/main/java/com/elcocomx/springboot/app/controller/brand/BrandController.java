@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.elcocomx.springboot.app.model.entity.brand.Brand;
+import com.elcocomx.springboot.app.model.entity.brand.BrandTotal;
 import com.elcocomx.springboot.app.service.brand.IBrandService;
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("brand")
 public class BrandController {
@@ -35,6 +37,12 @@ public class BrandController {
 	public ResponseEntity<List<Brand>> getAllBrands() {
 		List<Brand> list = brandService.getAllBrands();
 		return new ResponseEntity<List<Brand>>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("allTotal")
+	public ResponseEntity<List<BrandTotal>> getAllBrandTotal() {
+		List<BrandTotal> list = brandService.getAllBrandsTotal();
+		return new ResponseEntity<List<BrandTotal>>(list, HttpStatus.OK);
 	}
 	
 	@PostMapping("add")

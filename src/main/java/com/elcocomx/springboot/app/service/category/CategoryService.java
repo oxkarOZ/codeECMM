@@ -6,15 +6,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.elcocomx.springboot.app.model.entity.brand.BrandTotal;
 import com.elcocomx.springboot.app.model.entity.category.Category;
 import com.elcocomx.springboot.app.model.entity.category.CategoryRepository;
+import com.elcocomx.springboot.app.model.entity.category.MainCategory;
+import com.elcocomx.springboot.app.model.entity.product.ProductRepository;
 
 @Service
 public class CategoryService implements ICategoryService{
 
 	@Autowired
 	CategoryRepository categoryRepository;
-	
+	@Autowired
+	ProductRepository productRepository;
 	
 	@Override
 	public List<Category> getAllCategories() {
@@ -22,6 +26,8 @@ public class CategoryService implements ICategoryService{
 		categoryRepository.findAll().forEach(e -> list.add(e));
 		return list;
 	}
+	
+	
 
 	@Override
 	public Category getCategoryById(int categoryId) {
@@ -51,5 +57,32 @@ public class CategoryService implements ICategoryService{
 		categoryRepository.delete(getCategoryById(categoryId));
 		
 	}
+
+
+
+	@Override
+	public List<MainCategory> getAllMainCategories() {
+		List<Category> list = new ArrayList<>();
+		List<MainCategory> lista = new ArrayList<>();
+		categoryRepository.findAll().forEach(e -> lista.add(getStartPrice(e)));
+		
+		return lista;
+	}
+
+
+
+	@Override
+	public MainCategory getStartPrice(Category category) {
+		MainCategory mainCategory = new MainCategory();
+		mainCategory.setStartPrice(productRepository.getStartPrice(category).get(0));
+		mainCategory.setCategoryId(category.getCategoryId());
+		mainCategory.setCategoryName(category.getCategoryName());
+		mainCategory.setCategoryDescription(category.getCategoryDescription());
+		
+		
+		return mainCategory;
+	}
+	
+
 
 }
