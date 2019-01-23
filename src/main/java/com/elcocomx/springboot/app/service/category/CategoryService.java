@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.elcocomx.springboot.app.model.entity.brand.BrandTotal;
 import com.elcocomx.springboot.app.model.entity.category.Category;
+import com.elcocomx.springboot.app.model.entity.category.CategoryCount;
 import com.elcocomx.springboot.app.model.entity.category.CategoryRepository;
 import com.elcocomx.springboot.app.model.entity.category.MainCategory;
 import com.elcocomx.springboot.app.model.entity.product.ProductRepository;
@@ -62,7 +63,6 @@ public class CategoryService implements ICategoryService{
 
 	@Override
 	public List<MainCategory> getAllMainCategories() {
-		List<Category> list = new ArrayList<>();
 		List<MainCategory> lista = new ArrayList<>();
 		categoryRepository.findAll().forEach(e -> lista.add(getStartPrice(e)));
 		
@@ -82,7 +82,23 @@ public class CategoryService implements ICategoryService{
 		
 		return mainCategory;
 	}
+
+
+	@Override
+	public List<CategoryCount> getAllCategoriesCount() {
+		List<CategoryCount> lista = new ArrayList<>();
+		categoryRepository.findAll().forEach(e -> lista.add(getCount(e)));
+		return lista;
+	}
 	
+	public CategoryCount getCount(Category category) {
+		CategoryCount categoryCount = new CategoryCount();
+		categoryCount.setCategoryId(category.getCategoryId());
+		categoryCount.setCategoryName(category.getCategoryName());
+		categoryCount.setCategoryDescription(category.getCategoryDescription());
+		categoryCount.setQuantity(productRepository.getCount(category));
+		return categoryCount;
+	}
 
 
 }

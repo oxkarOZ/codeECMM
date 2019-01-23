@@ -13,5 +13,7 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 	List<Product> findByProductNameAndProductSKU(String productName, String productSKU);
     @Query("SELECT product.productPrice FROM Product product where product.category = ?1 ORDER BY product.productPrice ASC")
 	List<Double> getStartPrice(Category category);
-    
+    @Query("SELECT count(product.productId) as total FROM Product product where product.category = ?1 ")
+	Integer getCount(Category category);
+    List<Product> findByCategory(Category category);
 }

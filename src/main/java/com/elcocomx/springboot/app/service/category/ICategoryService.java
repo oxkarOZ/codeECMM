@@ -3,11 +3,13 @@ package com.elcocomx.springboot.app.service.category;
 import java.util.List;
 
 import com.elcocomx.springboot.app.model.entity.category.Category;
+import com.elcocomx.springboot.app.model.entity.category.CategoryCount;
 import com.elcocomx.springboot.app.model.entity.category.MainCategory;
 
 public interface ICategoryService {
 
 	List<Category> getAllCategories();
+	List<CategoryCount> getAllCategoriesCount();
 	List<MainCategory> getAllMainCategories();
 	MainCategory getStartPrice(Category category);
 	Category getCategoryById(int categoryId);

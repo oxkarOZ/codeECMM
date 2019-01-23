@@ -39,6 +39,12 @@ public class ProductController {
 		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
 	}
 	
+	@GetMapping("all/{idCategory}")
+	public ResponseEntity<List<Product>> getAllProductsByCategory(@PathVariable("idCategory") Integer idCategory) {
+		List<Product> list = productService.getAllProductsByCategory(idCategory);
+		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
+	}
+	
 	@PostMapping("add")
 	public ResponseEntity<Void> addProduct(@RequestBody Product product, UriComponentsBuilder builder) {
                 boolean flag = productService.addProduct(product);

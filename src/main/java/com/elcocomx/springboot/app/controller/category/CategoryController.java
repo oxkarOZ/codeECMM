@@ -19,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.elcocomx.springboot.app.model.entity.brand.Brand;
 import com.elcocomx.springboot.app.model.entity.category.Category;
+import com.elcocomx.springboot.app.model.entity.category.CategoryCount;
 import com.elcocomx.springboot.app.model.entity.category.MainCategory;
 import com.elcocomx.springboot.app.service.category.ICategoryService;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -40,6 +41,12 @@ public class CategoryController {
 		return new ResponseEntity<List<Category>>(list, HttpStatus.OK);
 	}
 	
+	@GetMapping("allCount")
+	public ResponseEntity<List<CategoryCount>> getAllCategoriesCount() {
+		List<CategoryCount> list = categoryService.getAllCategoriesCount();
+		return new ResponseEntity<List<CategoryCount>>(list, HttpStatus.OK);
+	}
+	
 	@GetMapping("allMain")
 	public ResponseEntity<List<MainCategory>> getAllMainCategories() {
 		List<MainCategory> list = categoryService.getAllMainCategories();
@@ -50,7 +57,7 @@ public class CategoryController {
 	public ResponseEntity<Void> addCategory(@RequestBody Category category, UriComponentsBuilder builder) {
                 boolean flag = categoryService.addCategory(category);
                 if (flag == false) {
-        	   return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+                	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
                 }
                 HttpHeaders headers = new HttpHeaders();
                 headers.setLocation(builder.path("/category/{id}").buildAndExpand(category.getCategoryId()).toUri());
