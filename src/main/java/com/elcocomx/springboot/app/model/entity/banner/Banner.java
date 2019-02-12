@@ -23,6 +23,6 @@ public class Banner {
 	
 	@OneToOne
 	@Getter @Setter
-	Product product;	
+	Product product;
 	
 }
