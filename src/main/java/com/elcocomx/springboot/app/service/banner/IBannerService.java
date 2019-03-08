@@ -7,7 +7,7 @@ import com.elcocomx.springboot.app.model.entity.product.Product;
 
 public interface IBannerService {
 
-	List<Product> getAllBanners();
+	List<Banner> getAllBanners();
 	Banner getBannerById(int bannerId);
     boolean addBanner(Banner banner);
     void updateBanner(Banner banner);

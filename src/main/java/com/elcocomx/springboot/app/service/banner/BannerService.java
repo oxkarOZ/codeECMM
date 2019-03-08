@@ -17,9 +17,9 @@ public class BannerService implements IBannerService {
 	
 	
 	@Override
-	public List<Product> getAllBanners() {
-		List<Product> list = new ArrayList<>();
-		bannerRepository.findAll().forEach(e -> list.add(e.getProduct()));
+	public List<Banner> getAllBanners() {
+		List<Banner> list = new ArrayList<>();
+		bannerRepository.findAll().forEach(e -> list.add(e));
 		return list;
 	}
 
