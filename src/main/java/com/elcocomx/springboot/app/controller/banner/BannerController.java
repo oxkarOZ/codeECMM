@@ -37,9 +37,9 @@ public class BannerController {
 	}
 	
 	@GetMapping("all")
-	public ResponseEntity<List<Product>> getAllBanners() {
-		List<Product> list = bannerService.getAllBanners();
-		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
+	public ResponseEntity<List<Banner>> getAllBanners() {
+		List<Banner> list = bannerService.getAllBanners();
+		return new ResponseEntity<List<Banner>>(list, HttpStatus.OK);
 	}
 	
 	@PostMapping("add")
