@@ -17,7 +17,7 @@
 	content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
 <meta property="og:description"
 	content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
-<title>Vali Admin - Free Bootstrap 4 Admin Template</title>
+<title>El coco - Products</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -235,17 +235,17 @@
 								<th>apellido</th>
 								<th>email</th>
 								<th>fecha</th>
-								<th style="text-align: center">elimina</th>								
+								<th>elimina</th>								
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="banner: ${banners}">
-								<td th:text="${banner.product.productSKU}"></td>
-								<td th:text="${banner.product.productPrice}"></td>
-								<td th:text="${banner.product.productSize}"></td>
-								<td th:text="${banner.product.productName}"></td>
-								<td th:text="${banner.product.brand.brandName}"></td>								
-								<td style="text-align: center;"><a th:href="@{'delete/'+${banner.bannerId}}" style="color: red"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a></td>					
+							<tr th:each="product: ${products}">
+								<td th:text="${product.productSKU}"></td>
+								<td th:text="${product.productPrice}"></td>
+								<td th:text="${product.productSize}"></td>
+								<td th:text="${product.productName}"></td>
+								<td th:text="${product.brand.brandName}"></td>								
+							    <td><img th:src="${product.images[0]}" style="width:50px;height:50px"/></td>				
 							</tr>
 						</tbody>
 					</table>
@@ -262,7 +262,6 @@
 	<!-- The javascript plugin to display page loading on top-->
 	<script src="../../js/plugins/pace.min.js"></script>
 	<!-- Page specific javascripts-->
-	<script type="text/javascript" src="../js/plugins/chart.js"></script>
-	
+	<script type="text/javascript" src="../../js/plugins/chart.js"></script>
 </body>
 </html>
