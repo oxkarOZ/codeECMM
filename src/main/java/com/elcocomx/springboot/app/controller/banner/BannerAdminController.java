@@ -14,27 +14,27 @@ import com.elcocomx.springboot.app.service.banner.IBannerService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
-@RequestMapping("admin/banner")
+@RequestMapping("admin")
 public class BannerAdminController {
 	@Autowired
 	IBannerService bannerService;
 
-	@RequestMapping(value="/list", method=RequestMethod.GET)
+	@RequestMapping(value="/banner/list", method=RequestMethod.GET)
 	public String listar(Model model) {
 		model.addAttribute("titulo", "Listado de productos en Banner");
 		model.addAttribute("banners", bannerService.getAllBanners());
 		return "listarBanner";
 	}
 
-	@RequestMapping(value="/index", method=RequestMethod.GET)
+	@RequestMapping(value="/banner/index", method=RequestMethod.GET)
 	public String index(Model model) {
 		model.addAttribute("titulo", "Listado de productos a mostrarse en Banner");
 		return "index";
 	}
 		
-	@RequestMapping(value="/delete/{id}")
+	@RequestMapping(value="/banner/delete/{id}")
 	public RedirectView  eliminar(@PathVariable("id") int id) {			
-		//bannerService.deleteBanner(id); 
+		bannerService.deleteBanner(id); 
 		
 		RedirectView rv = new RedirectView();
 		rv.setContextRelative(true);  
@@ -42,7 +42,7 @@ public class BannerAdminController {
         return rv;		
 	}
 	
-	@RequestMapping(value="/add/{id}")
+	@RequestMapping(value="/banner/add/{id}")
 	public RedirectView agregar(@PathVariable("id") int id) {
         Banner banner = new Banner();
         banner.getProduct().setProductId(id);  	

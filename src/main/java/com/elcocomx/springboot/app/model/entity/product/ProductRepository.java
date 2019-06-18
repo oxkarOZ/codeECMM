@@ -15,5 +15,8 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 	List<Double> getStartPrice(Category category);
     @Query("SELECT count(product.productId) as total FROM Product product where product.category = ?1 ")
 	Integer getCount(Category category);
-    List<Product> findByCategory(Category category);
+    List<Product> findByCategory(Category category);    
+    
+    @Query("SELECT p,b.product.productId as Existe FROM Product as p left join Banner as b on p = b.product")
+    List<Object[]> getProductBannerInfo();
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.elcocomx.springboot.app.model.entity.brand.Brand;
 import com.elcocomx.springboot.app.model.entity.brand.BrandRepository;
 import com.elcocomx.springboot.app.model.entity.brand.BrandTotal;
+import com.elcocomx.springboot.app.model.entity.product.Product;
 
 @Service
 public class BrandService implements IBrandService{
@@ -32,6 +33,17 @@ public class BrandService implements IBrandService{
 
 	@Override
 	public boolean addBrand(Brand brand) {
+		Brand brandTemp = null;
+		
+		if(brand.getBrandId() != null) {
+			brandTemp =  brandRepository.findById(brand.getBrandId()).get();
+		}	
+		
+		if(brandTemp != null) {
+			 brandRepository.save(brand);
+			return true;
+		}else {
+				
 		List<Brand> list = brandRepository.findByBrandNameAndBrandDescription(brand.getBrandName(), brand.getBrandDescription()); 	
         if (list.size() > 0) {
            return false;
@@ -39,6 +51,7 @@ public class BrandService implements IBrandService{
 	        brandRepository.save(brand);
 	        return true;
         }
+		}
 	}
 
 	@Override

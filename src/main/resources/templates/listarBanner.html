@@ -138,9 +138,13 @@
 			</div>
 		</div>
 		<ul class="app-menu">
-			<li><a class="app-menu__item active" href="list"><i
+				
+			<li><a class="app-menu__item active" href="/admin/product/list"><i
 					class="app-menu__icon fa fa-television"></i><span
-					class="app-menu__label">Banner</span></a></li>
+					class="app-menu__label">Products</span></a></li>
+			<li><a class="app-menu__item" href="/admin/category/list"><i
+					class="app-menu__icon fa fa-television"></i><span
+					class="app-menu__label">Category</span></a></li>
 			<li class="treeview"><a class="app-menu__item" href="#"
 				data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span
 					class="app-menu__label">UI Elements</span><i
@@ -225,44 +229,74 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="tile">
-				<h3 class="tile-title">Responsive Table</h3>
-				<div class="table-responsive">
-					<table class="table">
-						<thead>
-							<tr>
-								<th>id</th>
-								<th>nombre</th>
-								<th>apellido</th>
-								<th>email</th>
-								<th>fecha</th>
-								<th style="text-align: center">elimina</th>								
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="banner: ${banners}">
-								<td th:text="${banner.product.productSKU}"></td>
+				<div class="tile-body">
+					<div class="row">
+						<div class="col-sm-12">
+							<table
+								class="table table-hover table-bordered dataTable no-footer"
+								id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+								<thead>
+									<tr role="row">
+										<th class="sorting_asc" tabindex="0"
+											aria-controls="sampleTable" rowspan="1" colspan="1"
+											aria-sort="ascending"
+											aria-label="Nombre: activate to sort column descending"
+											style="width: 154px;">Nombre</th>
+										<th class="sorting" tabindex="0" aria-controls="sampleTable"
+											rowspan="1" colspan="1"
+											aria-label="Precio: activate to sort column ascending"
+											style="width: 254px;">Precio</th>
+											<th tabindex="0" aria-controls="sampleTable" rowspan="1"
+											colspan="1"
+											aria-label="Talla: activate to sort column ascending"
+											style="width: 91px;">Talla</th>	
+										<th class="sorting_asc" tabindex="0"
+											aria-controls="sampleTable" rowspan="1" colspan="1"
+											aria-sort="ascending"
+											aria-label="Categoria: activate to sort column descending"
+											style="width: 154px;">Categoría</th>
+										<th class="sorting" tabindex="0" aria-controls="sampleTable"
+											rowspan="1" colspan="1"
+											aria-label="Marca: activate to sort column ascending"
+											style="width: 254px;">Marca</th>
+											<th tabindex="0" aria-controls="sampleTable" rowspan="1"
+											colspan="1"	style="width: 91px;">Eliminar</th>										
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="banner: ${banners}" role="row" class="odd">
+								<td th:text="${banner.product.productName}"></td>
 								<td th:text="${banner.product.productPrice}"></td>
 								<td th:text="${banner.product.productSize}"></td>
-								<td th:text="${banner.product.productName}"></td>
+								<td th:text="${banner.product.category.categoryName}"></td>
 								<td th:text="${banner.product.brand.brandName}"></td>								
 								<td style="text-align: center;"><a th:href="@{'delete/'+${banner.bannerId}}" style="color: red"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a></td>					
 							</tr>
-						</tbody>
-					</table>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>	
 	</main>
 	<!-- Essential javascripts for application to work-->
 	<script src="../../js/jquery-3.2.1.min.js"></script>
 	<script src="../../js/popper.min.js"></script>
 	<script src="../../js/bootstrap.min.js"></script>
-	<script type="text/javascript" th:src="@{../../js/main.js}" src="../../js/main.js"></script>
+	<script src="../../js/plugins/jquery.dataTables.min.js"></script>
+	<script src="../../js/plugins/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$('#sampleTable').DataTable();
+	</script>
+	<script type="text/javascript" th:src="@{../../js/main.js}"
+		src="../../js/main.js"></script>
 	<!-- The javascript plugin to display page loading on top-->
 	<script src="../../js/plugins/pace.min.js"></script>
 	<!-- Page specific javascripts-->
-	<script type="text/javascript" src="../js/plugins/chart.js"></script>
+	<script type="text/javascript" src="../../js/plugins/chart.js"></script>
 	
 </body>
 </html>

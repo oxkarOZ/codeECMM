@@ -23,6 +23,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Main CSS-->
 <link rel="stylesheet" type="text/css" href="../../css/main.css">
+<link rel="stylesheet" type="text/css" href="../../css/style.css">
 <!-- Font-icon css-->
 <link rel="stylesheet" type="text/css"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -242,135 +243,72 @@
 											aria-controls="sampleTable" rowspan="1" colspan="1"
 											aria-sort="ascending"
 											aria-label="Name: activate to sort column descending"
-											style="width: 154px;">Nombre</th>
+											style="width: 60px;">Titulo</th>										
 										<th class="sorting" tabindex="0" aria-controls="sampleTable"
 											rowspan="1" colspan="1"
-											aria-label="Position: activate to sort column ascending"
-											style="width: 254px;">Precio</th>
-											<th class="sorting" tabindex="0" aria-controls="sampleTable"
-											rowspan="1" colspan="1"
 											aria-label="Office: activate to sort column ascending"
-											style="width: 107px;">Imagen</th>
-										<!-- th class="sorting" tabindex="0" aria-controls="sampleTable"
+											style="width: 60px;">SKU</th>
+										<th class="sorting" tabindex="0" aria-controls="sampleTable"
 											rowspan="1" colspan="1"
 											aria-label="Age: activate to sort column ascending"
-											style="width: 51px;">Categoría</th>-->
-
-										<th tabindex="0" aria-controls="sampleTable" rowspan="1"
-											colspan="1"
-											aria-label="Salary: activate to sort column ascending"
-											style="width: 91px;">Status Banner</th>
-										<th tabindex="0" aria-controls="sampleTable" rowspan="1"
-											colspan="1"
-											aria-label="Salary: activate to sort column ascending"
-											style="width: 91px;">Editar</th>
+											style="width: 60px;">Precio</th>
+											<th class="sorting" tabindex="0" aria-controls="sampleTable"
+											rowspan="1" colspan="1"
+											aria-label="Age: activate to sort column ascending"
+											style="width: 60px;">Tamaño</th>
+											<th class="sorting" tabindex="0" aria-controls="sampleTable"
+											rowspan="1" colspan="1"
+											aria-label="Age: activate to sort column ascending"
+											style="width: 60px;">UPC</th>
+											<th class="sorting" tabindex="0" aria-controls="sampleTable"
+											rowspan="1" colspan="1"
+											aria-label="Age: activate to sort column ascending"
+											style="width: 60px;">Sat Code</th>
+											<th class="sorting" tabindex="0" aria-controls="sampleTable"
+											rowspan="1" colspan="1"
+											aria-label="Age: activate to sort column ascending"
+											style="width: 60px;">Licencia</th>
+											<th class="sorting" tabindex="0" aria-controls="sampleTable"
+											rowspan="1" colspan="1"
+											aria-label="Age: activate to sort column ascending"
+											style="width: 60px;">Estatus</th>
+											<th class="sorting" tabindex="0" aria-controls="sampleTable"
+											rowspan="1" colspan="1"
+											aria-label="Age: activate to sort column ascending"
+											style="width: 60px;">Nombre</th>
+											<th class="sorting" tabindex="0" aria-controls="sampleTable"
+											rowspan="1" colspan="1"
+											aria-label="Age: activate to sort column ascending"
+											style="width: 60px;">Resultado</th>
+										
 									</tr>
 								</thead>
 								<tbody>
 
-									<tr th:each="product: ${products}" role="row" class="odd">
-										<td th:text="${product.productName}" class="sorting_1"></td>
-										<td th:text="${product.productPrice}"></td>
+									<tr th:each="product: ${tryInserted}" role="row" class="odd">
+										<td th:text="${product.productTitle}" th:classappend="${product.errorCode == 0} ? blueColor : redColor"></td>
 										
-										 <td th:if="${not #lists.isEmpty(product.images)}">
-										 <img th:src="${product.images[0].imageUrl}"
-											style="width: 80px; height: 80px" />
-										 </td>
-										 <td th:if="${#lists.isEmpty(product.images)}">
-										 <span>No cuenta con imágenes</span>
-										 </td>
-										<!-- <td th:text="${product.category.categoryName}"></td>-->
-										<!-- <td style="text-align: center;"><img th:src="${product.images[0].imageUrl}"
-											style="width: 40px; height: 40px" /></td> -->
-										<td th:switch="${product.existInBanner}"
-											style="text-align: center;"><span th:case="'0'"><a
-												th:href="@{'addBanner/'+${product.productId}}"
-												style="color: green"><i class="fa fa-plus-square fa-lg"
-													aria-hidden="true"></i></a></span> <span th:case="*"><a
-												style="color: green"><i class="fa fa-check-square fa-lg"
-													aria-hidden="true"></i></a></span></td>
+										<td th:text="${product.productSKU}" th:classappend="${product.errorCode == 0} ? blueColor : redColor"></td>
+										<td th:text="${product.productPrice}" th:classappend="${product.errorCode == 0} ? blueColor : redColor"></td>
+										<td th:text="${product.productSize}" th:classappend="${product.errorCode == 0} ? blueColor : redColor"></td>
+										<td th:text="${product.productUPC}" th:classappend="${product.errorCode == 0} ? blueColor : redColor"></td>
+										<td th:text="${product.productSatCode}" th:classappend="${product.errorCode == 0} ? blueColor : redColor"></td>
+										<td th:text="${product.productLicence}" th:classappend="${product.errorCode == 0} ? blueColor : redColor"></td>
+										<td th:text="${product.productStatus}" th:classappend="${product.errorCode == 0} ? blueColor : redColor"></td>
+										<td th:text="${product.productName}" th:classappend="${product.errorCode == 0} ? blueColor : redColor"></td>
+										<td th:text="${product.messageError}" th:classappend="${product.errorCode == 0} ? blueColor : redColor"></td>
 										
-										
-										<td style="text-align: center;"><a
-											th:href="@{'addProduct/'+${product.productId}}"
-											style="color: blue"><i class="fa fa-pencil-square fa-lg"
-												aria-hidden="true"></i></a></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
-					<div class="tile-footer">
-						<div class="row">
-							<div class="col-md-12">
-								<a class="btn btn-warning"
-									th:href="@{'/admin/product/addProduct/'}" href="#"><i
-									class="fa fa-fw fa-lg fa-plus-circle"></i>Add Product</a> <a
-									class="btn btn-warning"
-									th:href="@{'/admin/product/downloadPdf/'}" href="#"><i
-									class="fa fa-fw fa-lg fa-file-excel-o"></i>Download Excel</a>
-
-								<button type="button" class="btn btn-warning"
-									data-toggle="modal" data-target="#exampleModal">
-									<i class="fa fa-fw fa-lg fa-upload"></i> Load From Excel
-								</button>
-
-							</div>
-						</div>
-					</div>
+				
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Seleccione
-						archivo para cargar</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form class="form-group" action="#"
-					th:action="@{/admin/product/loadXlsProducts}"
-					th:object="${fileDto}" method="post">
-					<div class="modal-body">
-
-						<div class="form-group">
-							<label class="control-label"></label>
-							<div class="form-group">
-								<label class="sr-only" for="exampleInputAmount"></label>
-								<div class="input-group">
-									<div class="input-group-prepend">
-										<span class="input-group-text"><i
-											class="fa fa-file-excel-o"></i></span>
-									</div>
-									<input class="form-control"
-										th:field="*{urlNewImage}" id="urlNewImage"
-										placeholder="Ingrese la ruta del archivo de carga">
-									<div class="input-group-append">
-										<span class="input-group-text"><i class="fa fa-upload"></i></span>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Cerrar</button>
-						<button type="submit" class="btn btn-primary">Guardar
-							Cambios</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
+	
 	</main>
 	<!-- Essential javascripts for application to work-->
 	<script src="../../js/jquery-3.2.1.min.js"></script>

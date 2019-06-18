@@ -17,12 +17,12 @@
 	content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
 <meta property="og:description"
 	content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
-<title>El coco - Products</title>
+<title>Vali Admin - Free Bootstrap 4 Admin Template</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Main CSS-->
-<link rel="stylesheet" type="text/css" href="../../css/main.css">
+<link rel="stylesheet" type="text/css" href="../../../css/main.css">
 <!-- Font-icon css-->
 <link rel="stylesheet" type="text/css"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -141,12 +141,9 @@
 			<li><a class="app-menu__item active" href="/admin/banner/list"><i
 					class="app-menu__icon fa fa-television"></i><span
 					class="app-menu__label">Banner</span></a></li>
-			<li><a class="app-menu__item" href="/admin/category/list"><i
+			<li><a class="app-menu__item" href="/admin/product/list"><i
 					class="app-menu__icon fa fa-television"></i><span
-					class="app-menu__label">Category</span></a></li>
-			<li><a class="app-menu__item" href="/admin/brand/list"><i
-					class="app-menu__icon fa fa-television"></i><span
-					class="app-menu__label">Brand</span></a></li>
+					class="app-menu__label">Products</span></a></li>
 			<li class="treeview"><a class="app-menu__item" href="#"
 				data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span
 					class="app-menu__label">UI Elements</span><i
@@ -217,175 +214,181 @@
 	<div class="app-title">
 		<div>
 			<h1>
-				<i class="fa fa-list"></i> Productos
+				<i class="fa fa-plus-circle"></i> Agregar/Modificar Producto
 			</h1>
-			<!-- <p>A free and open source Bootstrap 4 admin template</p>-->
+
 		</div>
 		<ul class="app-breadcrumb breadcrumb">
 			<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
 			<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
 		</ul>
+
 	</div>
+
 	<div class="row">
 		<div class="col-md-12">
 			<div class="tile">
-
+			<h5 class="tile-title">Formulario de producto</h5>
 				<div class="tile-body">
 					<div class="row">
 						<div class="col-sm-12">
-							<table
+							<form class="form-group" action="#"
+								th:action="@{/admin/product/addProduct/}" th:object="${product}"
+								method="post">
+								<div class="row">
+									<div class="col-sm-6">
+
+										<input type="hidden" id="prodId" th:field="*{productId}">
+										<input type="hidden" id="imag" th:field="*{images}"> <label
+											for="title">Titulo</label> <input
+											class="form-control form-control-sm" id="title"
+											th:field="*{productTitle}" type="text"
+											placeholder="Enter Tittle"> <label for="sku">SKU</label>
+										<input class="form-control form-control-sm" id="sku"
+											th:field="*{productSKU}" type="text" placeholder="Enter SKU">
+
+										<label for="price">Precio:</label> <input
+											class="form-control form-control-sm" id="price"
+											th:field="*{productPrice}" type="text"
+											placeholder="Enter Price"> <label for="size">Tamaño:</label>
+										<select class="form-control form-control-sm" id="size"
+											th:field="*{productSize}">
+											<option th:value="'CH'" th:text="CH"></option>
+											<option th:value="'M'" th:text="M"></option>
+											<option th:value="'G'" th:text="G"></option>
+										</select> <label for="upc">UPC:</label> <input
+											class="form-control form-control-sm" id="upc"
+											th:field="*{productUPC}" type="text" placeholder="Enter UPC">
+
+
+										<label for="categ">Categoría:</label> 
+										<select	class="form-control form-control-sm" id="categ"
+											th:field="*{category}">
+											<option th:each="categ: ${categories}"
+												th:value="${categ.categoryId}"
+												th:text="${categ.categoryName}"></option>
+										</select>
+									</div>
+
+									<div class="col-sm-6">
+
+										<label for="satCode">SAT Código:</label> <input
+											class="form-control form-control-sm" id="satCode"
+											th:field="*{productSatCode}" type="text"
+											placeholder="Enter SAT Código"> <label for="licence">Licencia:</label>
+										<input class="form-control form-control-sm" id="licence"
+											th:field="*{productLicence}" type="text"
+											placeholder="Enter Licencia"> <label for="status">Estatus:</label>
+										<input class="form-control form-control-sm" id="status"
+											th:field="*{productStatus}" type="text"
+											placeholder="Enter Estatus"> <label for="name">Nombre:</label>
+										<input class="form-control form-control-sm" id="name"
+											th:field="*{productName}" type="text"
+											placeholder="Enter Nombre"> <label for="description">Descripcion</label>
+										<input class="form-control form-control-sm" id="description"
+											th:field="*{productDescription}" type="text"
+											placeholder="Enter Description"> <label for="brand">Marca:</label>
+										<select class="form-control form-control-sm" id="brand"
+											th:field="*{brand}">
+											<option th:each="brnd: ${brands}" th:value="${brnd.brandId}"
+												th:text="${brnd.brandName}"></option>
+										</select>
+
+									</div>
+								</div>
+								<div class="tile-footer">
+									<div class="row">
+										<div class="col-md-12 text-right">
+											<!-- <button class="btn btn-primary col-md-2" type="reset">Reset</button> -->
+											<button class="btn btn-primary col-md-2 btn-sm" th:sub
+												type="submit">Submit</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:switch="${loadImage}" class="row"> 
+	  <div th:case="'1'" class="col-md-12">
+			<div class="tile">
+				<h5 class="tile-title">Agregar imágen</h5>
+				<div class="tile-body">
+					<div class="row">
+						<div class="col-sm-12">
+							<form class="form-group" action="#" th:action="@{/admin/product/addImageProduct}" th:object="${newImage}" method="post">
+							<div class="row">
+						<div class="col-md-10">
+						<input type="hidden" id="prodId" th:field="*{currentProduct}">
+							<input class="form-control form-control-sm" id="newImage"
+											th:field="*{urlNewImage}" type="text"
+											placeholder="Enter Url de nueva Imágen"> 
+						</div>
+						<div class="col-md-2">
+						<button class="btn btn-primary btn-sm form-control form-control-sm" th:sub
+												type="submit">Submit</button>
+						</div>
+						</div>
+							
+											
+							</form>
+						</div>
+						</div>
+						</div>
+						</div>
+						</div>
+	  <div th:case="*"></div> 
+	</div>
+	
+	
+	<div class="row" th:switch="${loadImage}">
+		<div th:case="'1'" class="col-md-12">
+			<div class="tile">
+			<h5 class="tile-title">Eliminar imágen</h5>
+				<div class="tile-body">
+					<div class="row">
+						<div class="col-sm-12">
+						<table
 								class="table table-hover table-bordered dataTable no-footer"
 								id="sampleTable" role="grid" aria-describedby="sampleTable_info">
 								<thead>
 									<tr role="row">
-										<th class="sorting_asc" tabindex="0"
-											aria-controls="sampleTable" rowspan="1" colspan="1"
-											aria-sort="ascending"
-											aria-label="Name: activate to sort column descending"
-											style="width: 154px;">Nombre</th>
-										<th class="sorting" tabindex="0" aria-controls="sampleTable"
-											rowspan="1" colspan="1"
-											aria-label="Position: activate to sort column ascending"
-											style="width: 254px;">Precio</th>
-											<th class="sorting" tabindex="0" aria-controls="sampleTable"
-											rowspan="1" colspan="1"
-											aria-label="Office: activate to sort column ascending"
-											style="width: 107px;">Imagen</th>
-										<!-- th class="sorting" tabindex="0" aria-controls="sampleTable"
-											rowspan="1" colspan="1"
-											aria-label="Age: activate to sort column ascending"
-											style="width: 51px;">Categoría</th>-->
-
-										<th tabindex="0" aria-controls="sampleTable" rowspan="1"
-											colspan="1"
-											aria-label="Salary: activate to sort column ascending"
-											style="width: 91px;">Status Banner</th>
-										<th tabindex="0" aria-controls="sampleTable" rowspan="1"
-											colspan="1"
-											aria-label="Salary: activate to sort column ascending"
-											style="width: 91px;">Editar</th>
+										<th>Url</th>
+										<th>Imágen</th>
+										<th>Eliminar</th>
 									</tr>
 								</thead>
 								<tbody>
-
-									<tr th:each="product: ${products}" role="row" class="odd">
-										<td th:text="${product.productName}" class="sorting_1"></td>
-										<td th:text="${product.productPrice}"></td>
-										
-										 <td th:if="${not #lists.isEmpty(product.images)}">
-										 <img th:src="${product.images[0].imageUrl}"
-											style="width: 80px; height: 80px" />
-										 </td>
-										 <td th:if="${#lists.isEmpty(product.images)}">
-										 <span>No cuenta con imágenes</span>
-										 </td>
-										<!-- <td th:text="${product.category.categoryName}"></td>-->
-										<!-- <td style="text-align: center;"><img th:src="${product.images[0].imageUrl}"
-											style="width: 40px; height: 40px" /></td> -->
-										<td th:switch="${product.existInBanner}"
-											style="text-align: center;"><span th:case="'0'"><a
-												th:href="@{'addBanner/'+${product.productId}}"
-												style="color: green"><i class="fa fa-plus-square fa-lg"
-													aria-hidden="true"></i></a></span> <span th:case="*"><a
-												style="color: green"><i class="fa fa-check-square fa-lg"
-													aria-hidden="true"></i></a></span></td>
-										
-										
-										<td style="text-align: center;"><a
-											th:href="@{'addProduct/'+${product.productId}}"
-											style="color: blue"><i class="fa fa-pencil-square fa-lg"
-												aria-hidden="true"></i></a></td>
+									<tr th:each="ima: ${product.images}" role="row" class="odd">
+										<td th:text="${ima.imageUrl}"></td>
+										<td><img th:src="${ima.imageUrl}"
+											style="width: 80px; height: 80px" /></td>
+											<td style="text-align: center;"><a th:href="@{'/admin/product/deleteProductImage/'+${product.productId}+'/'+${ima.imageId}}" style="color: red"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
-					</div>
-					<div class="tile-footer">
-						<div class="row">
-							<div class="col-md-12">
-								<a class="btn btn-warning"
-									th:href="@{'/admin/product/addProduct/'}" href="#"><i
-									class="fa fa-fw fa-lg fa-plus-circle"></i>Add Product</a> <a
-									class="btn btn-warning"
-									th:href="@{'/admin/product/downloadPdf/'}" href="#"><i
-									class="fa fa-fw fa-lg fa-file-excel-o"></i>Download Excel</a>
-
-								<button type="button" class="btn btn-warning"
-									data-toggle="modal" data-target="#exampleModal">
-									<i class="fa fa-fw fa-lg fa-upload"></i> Load From Excel
-								</button>
-
-							</div>
 						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Seleccione
-						archivo para cargar</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form class="form-group" action="#"
-					th:action="@{/admin/product/loadXlsProducts}"
-					th:object="${fileDto}" method="post">
-					<div class="modal-body">
-
-						<div class="form-group">
-							<label class="control-label"></label>
-							<div class="form-group">
-								<label class="sr-only" for="exampleInputAmount"></label>
-								<div class="input-group">
-									<div class="input-group-prepend">
-										<span class="input-group-text"><i
-											class="fa fa-file-excel-o"></i></span>
-									</div>
-									<input class="form-control"
-										th:field="*{urlNewImage}" id="urlNewImage"
-										placeholder="Ingrese la ruta del archivo de carga">
-									<div class="input-group-append">
-										<span class="input-group-text"><i class="fa fa-upload"></i></span>
-									</div>
-								</div>
-							</div>
 						</div>
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Cerrar</button>
-						<button type="submit" class="btn btn-primary">Guardar
-							Cambios</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
+						</div>
+						</div>
+						<div th:case="*"></div> 
+						</div>
+	
 	</main>
 	<!-- Essential javascripts for application to work-->
-	<script src="../../js/jquery-3.2.1.min.js"></script>
-	<script src="../../js/popper.min.js"></script>
-	<script src="../../js/bootstrap.min.js"></script>
-	<script src="../../js/plugins/jquery.dataTables.min.js"></script>
-	<script src="../../js/plugins/dataTables.bootstrap.min.js"></script>
-	<script type="text/javascript">
-		$('#sampleTable').DataTable();
-	</script>
-	<script type="text/javascript" th:src="@{../../js/main.js}"
-		src="../../js/main.js"></script>
+	<script src="../../../js/jquery-3.2.1.min.js"></script>
+	<script src="../../../js/popper.min.js"></script>
+	<script src="../../../js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:src="@{../../../js/main.js}"
+		src="../../../js/main.js"></script>
 	<!-- The javascript plugin to display page loading on top-->
-	<script src="../../js/plugins/pace.min.js"></script>
+	<script src="../../../js/plugins/pace.min.js"></script>
 	<!-- Page specific javascripts-->
-	<script type="text/javascript" src="../../js/plugins/chart.js"></script>
+
+
 </body>
 </html>
