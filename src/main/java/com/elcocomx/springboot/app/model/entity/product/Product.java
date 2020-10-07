@@ -38,7 +38,7 @@ public class Product {
 	private String productDescription;
 	
 	@Getter @Setter
-	private String productSKU;
+	private String productSku;
 	
 	@Getter @Setter
 	private Double productPrice;
@@ -47,7 +47,7 @@ public class Product {
 	private String productSize;
 	
 	@Getter @Setter
-	private String productUPC;
+	private String productUpc;
 	
 	@Getter @Setter
 	private String productSatCode;

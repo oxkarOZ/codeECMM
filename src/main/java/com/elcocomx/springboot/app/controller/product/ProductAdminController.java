@@ -60,6 +60,7 @@ import com.elcocomx.springboot.app.service.brand.IBrandService;
 import com.elcocomx.springboot.app.service.category.ICategoryService;
 import com.elcocomx.springboot.app.service.image.IImageService;
 import com.elcocomx.springboot.app.service.product.IProductService;
+import com.elcocomx.springboot.app.service.utility.IUploadFileService;
 
 import javassist.expr.NewArray;
 
@@ -82,13 +83,15 @@ public class ProductAdminController {
 	@Autowired
 	IImageService imageService;
 		
+	@Autowired
+	IUploadFileService uploadFileService;
 	
 	@RequestMapping(value="/product/list", method=RequestMethod.GET)
 	public String listProduct(Model model) {	
 		model.addAttribute("titulo", "Listado de productos en Banner");		
 		model.addAttribute("products", productService.getAllProductsInfo());
 		model.addAttribute("fileDto", new ProductAdmin());
-		return "listarProducts";
+		return "products";
 	}
 	
 	@RequestMapping(value="/product/addBanner/{id}" )
@@ -124,6 +127,33 @@ public class ProductAdminController {
          return "showProduct";
 	}
 	
+	@RequestMapping(value="/product/loadExcel/",method=RequestMethod.GET)
+	public String loadExcel(Model model) {
+		
+         return "LoadExcel";
+	}
+	
+	@RequestMapping(value = "/product/loadExcel", method=RequestMethod.POST)
+	public String loadExcel(@RequestParam("file") MultipartFile file, BindingResult result, Model model) throws IOException {
+		
+		
+		
+		if (!file.isEmpty()) {
+			System.out.println("dentro --------");
+			String uniqueFilename = null;
+			try {
+				uniqueFilename = uploadFileService.copy(file);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		                
+	   return "excelResult";
+	}
+	
+	
+	
 	@RequestMapping(value="/product/addProduct/",method=RequestMethod.GET)
 	public String addNewProduct(Model model) {
 		Product prod =  new Product();				
@@ -134,7 +164,7 @@ public class ProductAdminController {
 		model.addAttribute("newImage", pa);
 		model.addAttribute("loadImage", 0);
 		
-         return "showProduct";
+         return "AddProduct";
 	}
 	
 	@RequestMapping(value="/product/deleteProductImage/{idProd}/{idImg}",method=RequestMethod.GET)
@@ -438,8 +468,8 @@ public class ProductAdminController {
 	        		}
 		        	
 	        		if(validaString(row.getCell(2).toString())) {
-	        			prod.setProductSKU(row.getCell(2).toString());
-	        			prodA.setProductSKU(row.getCell(2).toString());
+	        			prod.setProductSku(row.getCell(2).toString());
+	        			prodA.setProductSku(row.getCell(2).toString());
 	        		} else {
 	        			colError = 2;
 	        		}
@@ -461,8 +491,8 @@ public class ProductAdminController {
 	        		}
 	        		
 	        		if(validaString(row.getCell(5).toString())) {
-	        			prod.setProductUPC(row.getCell(5).toString());
-	        			prodA.setProductUPC(row.getCell(5).toString());
+	        			prod.setProductUpc(row.getCell(5).toString());
+	        			prodA.setProductUpc(row.getCell(5).toString());
 	        		} else {
 	        			colError = 5;
 	        		}

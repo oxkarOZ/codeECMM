@@ -94,7 +94,7 @@ public class ProductService implements IProductService{
 			productRepository.save(product);
 			return true;
 		}else {
-			List<Product> list = productRepository.findByProductNameAndProductSKU(product.getProductName(), product.getProductSKU()); 	
+			List<Product> list = productRepository.findByProductNameAndProductSku(product.getProductName(), product.getProductSku()); 	
 	        			
 			if (list.size() > 0) {
 	              return false; 
